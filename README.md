@@ -17,6 +17,14 @@
 - **EN**: Fixed the Vditor theme to `Light` and completely removed the double scrollbars on the webview for a cleaner layout.
 - **JA**: Vditorのテーマを `Light` に強制固定し、Webview上の二重スクロールバーを完全に排除してレイアウトを最適化しました。
 
+### Toolbar & UI Fixes / ツールバーとUI挙動の修正 (v0.0.5)
+- **EN**: Fixed the toolbar pin behavior by hiding the distracting side panel button (`.vditor-panel`) and fixed editor scrolling glitches.
+- **JA**: 画面横に追従して邪魔だったVditorのサイドパネルボタン (`.vditor-panel`) を完全に非表示にし、エディタ本体のスクロール時のガタつき（overflow-anchor）を修正しました。
+
+### WYSIWYG Default & Shortcuts / WYSIWYGモードのデフォルト化と便利機能 (v0.0.6)
+- **EN**: Changed the default editor mode from Instant Rendering (ir) to WYSIWYG for a better out-of-the-box experience. Also added a new `Cmd/Ctrl+D` shortcut inside the editor to quickly select the current line or block.
+- **JA**: エディタの初期モードを、Instant Rendering (ir) からより直感的な WYSIWYG モードに変更しました。また、エディタ内で `Cmd/Ctrl+D` を押すことで、現在の行やブロックを即座に全選択できる便利なショートカットキーを追加しました。
+
 ### Math Rendering Toggle / 数式(MathJax)の軽量化設定 (v0.0.3)
 - **EN**: Added `markdown-editor.enableMath` setting (default: false). Math rendering engines (KaTeX) can be heavy, so disabling this greatly improves loading performance for users who don't write math equations.
 - **JA**: `markdown-editor.enableMath` 設定を追加しました（デフォルト: false）。数式レンダリング（KaTeX）は読み込みが重いため、数式を使わないユーザーはこれをオフにしておくことで起動パフォーマンスが大幅に向上します。

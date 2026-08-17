@@ -24,7 +24,7 @@ export const toolbar = [
 	'headings',
 	'bold',
 	'italic',
-	'strike',
+	{ name: 'strike', hotkey: '⌘-shift-alt-s' },
 	'link',
 	'|',
 	'list',

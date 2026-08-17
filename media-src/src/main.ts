@@ -33,6 +33,8 @@ function getScrollEl(): HTMLElement | null {
   // pin state / layout), so pick whichever candidate is really overflowing instead of
   // hardcoding one selector.
   const candidates = [
+    '.vditor-wysiwyg .vditor-reset',
+    '.vditor-wysiwyg',
     '.vditor-ir .vditor-reset',
     '.vditor-ir',
     '.vditor-content',
@@ -199,7 +201,7 @@ function initVditor(msg) {
     minHeight: '100%',
     lang,
     value: msg.content,
-    mode: 'ir',
+    mode: 'wysiwyg',
     cache: { enable: false },
     toolbar,
     toolbarConfig: { pin: true },
@@ -210,6 +212,30 @@ function initVditor(msg) {
       fixTableIr()
       fixPanelHover()
       vditor.focus()
+      
+      // L3: Ctrl+D for selecting the current line/block
+      window.addEventListener('keydown', (e: KeyboardEvent) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') {
+          e.preventDefault()
+          e.stopPropagation()
+          e.stopImmediatePropagation()
+          const selection = window.getSelection()
+          if (!selection || !selection.rangeCount) return
+          const node = selection.anchorNode
+          if (!node) return
+          
+          let block = node.nodeType === 3 ? node.parentNode : node
+          while (block && block !== vditor.vditor.element && window.getComputedStyle(block as HTMLElement).display === 'inline') {
+            block = block.parentNode
+          }
+          if (block && block !== vditor.vditor.element) {
+            const range = document.createRange()
+            range.selectNodeContents(block as Node)
+            selection.removeAllRanges()
+            selection.addRange(range)
+          }
+        }
+      }, true)
       // Initialize search bar once (idempotent across vditor re-inits)
       if (!(window as any).__vmdSearch) {
         ;(window as any).__vmdSearch = initSearch()
