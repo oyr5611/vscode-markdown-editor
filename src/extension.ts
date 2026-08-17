@@ -4,7 +4,10 @@ import * as fs from 'fs'
 
 function getCustomCssContent(extensionUri?: vscode.Uri): string {
   if (!extensionUri) return ''
-  const builtinDefaultCss = NodePath.resolve(extensionUri.fsPath, 'media/default-custom.css')
+  const config = vscode.workspace.getConfiguration('markdown-editor')
+  const theme = config.get<string>('theme') || 'light'
+  const cssFile = theme === 'dark' ? 'media/dark-custom.css' : 'media/default-custom.css'
+  const builtinDefaultCss = NodePath.resolve(extensionUri.fsPath, cssFile)
   try {
     if (fs.existsSync(builtinDefaultCss)) {
       return fs.readFileSync(builtinDefaultCss, 'utf-8')
@@ -261,10 +264,10 @@ class EditorPanel {
       ? { inlineDigit: true }
       : { inlineDigit: false, engine: null }
 
+    const themeConfig = EditorPanel.config.get<string>('theme') || 'light'
+
     return {
-      useVscodeThemeColor: EditorPanel.config.get<boolean>(
-        'useVscodeThemeColor'
-      ),
+      useVscodeThemeColor: false,
       showLineNumbers: EditorPanel.config.get<boolean>(
         'showLineNumbers'
       ),
@@ -275,11 +278,11 @@ class EditorPanel {
       },
       ...saved,
       mode: 'wysiwyg',
-      theme: 'classic',
+      theme: themeConfig === 'dark' ? 'dark' : 'classic',
       preview: {
         ...(saved.preview || {}),
         theme: {
-          current: 'light',
+          current: themeConfig === 'dark' ? 'dark' : 'light',
           path: 'https://cdn.jsdelivr.net/npm/vditor@3.8.17/dist/css/content-theme'
         },
         math: mathOption
@@ -458,7 +461,7 @@ class EditorPanel {
       this._update({
         type: 'init',
         options: EditorPanel.getVditorOptions(this._context),
-        theme: 'light',
+        theme: EditorPanel.config.get<string>('theme') === 'dark' ? 'dark' : 'light',
       })
     }, null, this._disposables)
     // update EditorPanel when vsc editor changes
@@ -504,7 +507,7 @@ class EditorPanel {
             this._update({
               type: 'init',
               options: EditorPanel.getVditorOptions(this._context),
-              theme: 'light',
+              theme: EditorPanel.config.get<string>('theme') === 'dark' ? 'dark' : 'light',
             })
             break
           }
@@ -788,7 +791,7 @@ class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
           updateWebview({
             type: 'init',
             options: EditorPanel.getVditorOptions(this.context),
-            theme: 'light',
+            theme: EditorPanel.config.get<string>('theme') === 'dark' ? 'dark' : 'light',
           })
           break
         case 'save-options':

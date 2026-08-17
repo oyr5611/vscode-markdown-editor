@@ -74,6 +74,15 @@
     "configuration": {
       "title": "markdown-editor",
       "properties": {
+        "markdown-editor.theme": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ],
+          "default": "light",
+          "description": "Select the theme for the markdown editor (light or dark)."
+        },
         "markdown-editor.imageSaveFolder": {
           "type": "string",
           "default": "assets",
