@@ -21,6 +21,10 @@
 - **EN**: Added `markdown-editor.enableMath` setting (default: false). Math rendering engines (KaTeX) can be heavy, so disabling this greatly improves loading performance for users who don't write math equations.
 - **JA**: `markdown-editor.enableMath` 設定を追加しました（デフォルト: false）。数式レンダリング（KaTeX）は読み込みが重いため、数式を使わないユーザーはこれをオフにしておくことで起動パフォーマンスが大幅に向上します。
 
+### Typing Performance Optimization / 入力パフォーマンスの爆速化 (v0.0.4)
+- **EN**: Injected a performance optimization script that dramatically reduces layout thrashing by cleaning up unnecessary font overrides and disabling pointer events on heavy Mermaid diagrams while typing.
+- **JA**: 入力時のレイアウトスラッシングを防ぐため、VSCode由来の不要なフォント指定を動的に削除し、さらにキー入力中は重いMermaidダイアグラムのポインタイベントを無効化する最適化スクリプトを注入しました。これにより入力のモッサリ感が劇的に改善されます。
+
 ## Features / 主な機能
 
 1. What You See Is What You Get (WYSIWYG)

@@ -287,6 +287,35 @@ class EditorPanel {
     }
   }
 
+  static performanceOptimizationScript = `<script>
+  (function(){
+    new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+            if (m.type === 'attributes' && m.attributeName === 'style') {
+                var el = m.target;
+                if (el.style.fontFamily && el.style.fontFamily.indexOf('vscode-editor-font-family') !== -1) {
+                    el.style.fontFamily = '';
+                }
+            }
+        });
+    }).observe(document.getElementById('app') || document.body, { attributes: true, attributeFilter: ['style'], subtree: true });
+  
+    var mermaidDebounceTimer = null;
+    window.addEventListener('keydown', function(e) {
+      document.body.classList.add('vmd-typing');
+      if (mermaidDebounceTimer) clearTimeout(mermaidDebounceTimer);
+      mermaidDebounceTimer = setTimeout(function() {
+        document.body.classList.remove('vmd-typing');
+      }, 800);
+    }, true);
+  })();
+  </script>
+  <style>
+  body.vmd-typing .mermaid {
+    pointer-events: none !important;
+  }
+  </style>`
+
   static lineNumberScript = `<style>
 .vditor-wysiwyg .vditor-reset{padding-left:60px!important}
 .vditor-toolbar.vditor-toolbar--pin{padding-left:60px!important}
@@ -662,6 +691,7 @@ class EditorPanel {
 
 
 				${JsFiles.map((f) => `<script src="${f}"></script>`).join('\n')}
+				${EditorPanel.performanceOptimizationScript}
 				${EditorPanel.config.get<boolean>('showLineNumbers') !== false ? EditorPanel.lineNumberScript : ''}
 			</body>
 			</html>`
@@ -873,6 +903,7 @@ class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
 
 				${JsFiles.map((f) => `<script src="${f}"></script>`).join('\n')}
+				${EditorPanel.performanceOptimizationScript}
 				${EditorPanel.config.get<boolean>('showLineNumbers') !== false ? EditorPanel.lineNumberScript : ''}
 			</body>
 			</html>`
