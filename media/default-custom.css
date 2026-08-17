@@ -1,0 +1,340 @@
+/* ==========================================================================
+   vscode-markdown-editor Built-in Default Style Sheet
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Global Container & Single Scrollbar (二重スクロールバー完全抹消)
+   -------------------------------------------------------------------------- */
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden !important; /* 外側のスクロールバーを非表示化 */
+  background-color: #ffffff !important;
+}
+
+#app {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background-color: #ffffff !important;
+}
+
+.vditor {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+  border: none !important;
+}
+
+.vditor-content,
+.vditor-ir,
+.vditor-wysiwyg {
+  height: calc(100vh - 40px) !important;
+  overflow-y: auto !important; /* 内側のエディタ領域のみスクロール可能に一本化 */
+}
+
+/* --------------------------------------------------------------------------
+   2. Full Width Fluid Layout (描画領域フル幅拡張)
+   -------------------------------------------------------------------------- */
+.vditor-reset {
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 24px 4% 60px 4% !important;
+  background-color: #ffffff !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography (英数字・本文の全全域フォントを可読性の高いプロポーショナルに変更)
+   -------------------------------------------------------------------------- */
+.vditor,
+.vditor-reset,
+.vditor-reset *,
+.vditor-ir,
+.vditor-ir *,
+.vditor-wysiwyg,
+.vditor-wysiwyg *,
+.vditor-content,
+.vditor-content * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif !important;
+}
+
+/* 本文・段落・リスト・引用のフォントサイズと行間 */
+.vditor-reset p,
+.vditor-reset li,
+.vditor-reset div,
+.vditor-reset span,
+.vditor-ir p,
+.vditor-ir li,
+.vditor-ir span {
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+  color: #24292f !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Headings (見出し)
+   -------------------------------------------------------------------------- */
+.vditor-reset h1,
+.vditor-ir h1 {
+  font-size: 2.1em !important;
+  font-weight: 700 !important;
+  color: #0969da !important;
+  border-bottom: 2px solid #e1e4e8 !important;
+  padding-bottom: 0.4em !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 0.8em !important;
+  letter-spacing: -0.02em !important;
+}
+
+.vditor-reset h2,
+.vditor-ir h2 {
+  font-size: 1.55em !important;
+  font-weight: 600 !important;
+  color: #1f2328 !important;
+  border-bottom: 1px solid #eaecef !important;
+  padding-bottom: 0.3em !important;
+  margin-top: 1.4em !important;
+  margin-bottom: 0.6em !important;
+  letter-spacing: -0.015em !important;
+}
+
+.vditor-reset h3,
+.vditor-ir h3 {
+  font-size: 1.25em !important;
+  font-weight: 600 !important;
+  color: #24292f !important;
+  margin-top: 1.2em !important;
+  margin-bottom: 0.5em !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Images (画像サイズ制御 - 幅70%・中央寄せ)
+   -------------------------------------------------------------------------- */
+.vditor-reset img,
+.vditor-ir img,
+.vditor-wysiwyg img,
+.vditor-content img {
+  max-width: 70% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1.2em auto !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Blockquotes (引用ブロック - 斜体解除 & スタイリッシュデザイン)
+   -------------------------------------------------------------------------- */
+.vditor-reset blockquote,
+.vditor-ir blockquote {
+  margin: 1.2em 0 !important;
+  padding: 12px 18px !important;
+  color: #484f58 !important;
+  font-style: normal !important;
+  background-color: #f6f8fa !important;
+  border-left: 4px solid #0969da !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+
+.vditor-reset blockquote *,
+.vditor-ir blockquote * {
+  color: #484f58 !important;
+  font-style: normal !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Code & Monospace (コードブロック・インラインコードのみ等幅フォント適用)
+   -------------------------------------------------------------------------- */
+.vditor-reset pre,
+.vditor-reset pre *,
+.vditor-reset code,
+.vditor-reset code *,
+.vditor-ir pre,
+.vditor-ir pre *,
+.vditor-ir code,
+.vditor-ir code * {
+  font-family: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}
+
+.vditor-reset pre.vditor-reset,
+.vditor-reset pre,
+.vditor-ir pre {
+  background-color: #f6f8fa !important;
+  border: 1px solid #d0d7de !important;
+  border-radius: 6px !important;
+  padding: 14px 18px !important;
+  font-size: 13.5px !important;
+  line-height: 1.55 !important;
+}
+
+.vditor-reset code:not(pre code),
+.vditor-ir code:not(pre code) {
+  background-color: #f2f4f7 !important;
+  color: #24292f !important;
+  padding: 0.2em 0.45em !important;
+  border-radius: 4px !important;
+  font-size: 88% !important;
+  border: 1px solid #e1e4e8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Mermaid Diagrams (インラインダークスタイルの強力上書き・ライト化)
+   -------------------------------------------------------------------------- */
+.vditor-reset .vditor-wysiwyg__block[data-type="mermaid"],
+.vditor-reset .mermaid,
+.vditor-ir .mermaid {
+  background-color: #ffffff !important;
+  border: 1px solid #e1e4e8 !important;
+  border-radius: 8px !important;
+  padding: 24px !important;
+  margin: 1.5em 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
+}
+
+/* サブグラフ（囲み枠）のインライン暗色fillを強制的にライトパステルカラーへ変更 */
+.vditor-reset .mermaid svg .cluster rect,
+.vditor-reset .mermaid svg g.cluster rect,
+.vditor-reset .mermaid svg rect.cluster,
+.vditor-reset .mermaid svg rect[style*="fill"],
+.vditor-ir .mermaid svg .cluster rect,
+.vditor-ir .mermaid svg g.cluster rect {
+  fill: #f1f5f9 !important;
+  stroke: #cbd5e1 !important;
+  stroke-width: 1.5px !important;
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+/* ID別のパステルテーマ自動分類 */
+.vditor-reset .mermaid svg g[id*="FOUNDATION"] rect,
+.vditor-reset .mermaid svg g[id*="foundation"] rect {
+  fill: #eff6ff !important;
+  stroke: #3b82f6 !important;
+}
+
+.vditor-reset .mermaid svg g[id*="ARCH"] rect,
+.vditor-reset .mermaid svg g[id*="arch"] rect {
+  fill: #fdf4ff !important;
+  stroke: #c084fc !important;
+}
+
+.vditor-reset .mermaid svg g[id*="EXEC"] rect,
+.vditor-reset .mermaid svg g[id*="exec"] rect {
+  fill: #fefce8 !important;
+  stroke: #eab308 !important;
+}
+
+.vditor-reset .mermaid svg g[id*="MOSAIC"] rect,
+.vditor-reset .mermaid svg g[id*="mosaic"] rect {
+  fill: #fef2f2 !important;
+  stroke: #f87171 !important;
+}
+
+/* サブグラフ タイトル文字をダークブルー・ダークグレーに上書き */
+.vditor-reset .mermaid svg .cluster text,
+.vditor-reset .mermaid svg .cluster tspan,
+.vditor-reset .mermaid svg g.cluster text,
+.vditor-reset .mermaid svg g.cluster tspan,
+.vditor-reset .mermaid svg text[style*="color"],
+.vditor-ir .mermaid svg .cluster text,
+.vditor-ir .mermaid svg .cluster tspan {
+  fill: #0f172a !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
+/* ノード（ボックスブロック） */
+.vditor-reset .mermaid svg .node rect,
+.vditor-reset .mermaid svg .node polygon,
+.vditor-reset .mermaid svg .node circle,
+.vditor-ir .mermaid svg .node rect,
+.vditor-ir .mermaid svg .node polygon {
+  fill: #ffffff !important;
+  stroke: #2563eb !important;
+  stroke-width: 1.5px !important;
+  rx: 6px !important;
+  ry: 6px !important;
+}
+
+.vditor-reset .mermaid svg .node .label,
+.vditor-reset .mermaid svg .node text,
+.vditor-reset .mermaid svg .node tspan,
+.vditor-reset .mermaid svg .node p,
+.vditor-reset .mermaid svg .node span,
+.vditor-ir .mermaid svg .node text,
+.vditor-ir .mermaid svg .node span {
+  fill: #0f172a !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+
+/* 矢印上の文字・ラベル */
+.vditor-reset .mermaid svg .edgeLabel,
+.vditor-reset .mermaid svg .edgeLabel rect,
+.vditor-reset .mermaid svg .edgeLabel label,
+.vditor-reset .mermaid svg .edgeLabel p,
+.vditor-reset .mermaid svg .edgeLabel span,
+.vditor-ir .mermaid svg .edgeLabel,
+.vditor-ir .mermaid svg .edgeLabel span {
+  background-color: #ffffff !important;
+  fill: #ffffff !important;
+  color: #1e293b !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.vditor-reset .mermaid svg .edgeLabel rect,
+.vditor-ir .mermaid svg .edgeLabel rect {
+  stroke: #cbd5e1 !important;
+  stroke-width: 1px !important;
+  rx: 4px !important;
+  ry: 4px !important;
+}
+
+/* 矢印・結合線 */
+.vditor-reset .mermaid svg .edgePath .path,
+.vditor-reset .mermaid svg .flowchart-link,
+.vditor-ir .mermaid svg .edgePath .path {
+  stroke: #64748b !important;
+  stroke-width: 1.5px !important;
+}
+
+.vditor-reset .mermaid svg .marker,
+.vditor-ir .mermaid svg .marker {
+  fill: #64748b !important;
+  stroke: #64748b !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. Tables (テーブル)
+   -------------------------------------------------------------------------- */
+.vditor-reset table,
+.vditor-ir table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 1.2em 0 !important;
+}
+
+.vditor-reset th,
+.vditor-reset td,
+.vditor-ir th,
+.vditor-ir td {
+  border: 1px solid #d0d7de !important;
+  padding: 10px 14px !important;
+}
+
+.vditor-reset th,
+.vditor-ir th {
+  background-color: #f6f8fa !important;
+  font-weight: 600 !important;
+}

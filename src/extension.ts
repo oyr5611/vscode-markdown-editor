@@ -1,5 +1,19 @@
 import * as vscode from 'vscode'
 import * as NodePath from 'path'
+import * as fs from 'fs'
+
+function getCustomCssContent(extensionUri?: vscode.Uri): string {
+  if (!extensionUri) return ''
+  const builtinDefaultCss = NodePath.resolve(extensionUri.fsPath, 'media/default-custom.css')
+  try {
+    if (fs.existsSync(builtinDefaultCss)) {
+      return fs.readFileSync(builtinDefaultCss, 'utf-8')
+    }
+  } catch (err) {
+    console.error('[markdown-editor] Failed to read built-in default CSS at ' + builtinDefaultCss, err)
+  }
+  return ''
+}
 const KeyVditorOptions = 'vditor.options'
 
 function debug(...args: any[]) {
@@ -253,7 +267,7 @@ class EditorPanel {
   }
 
   static lineNumberScript = `<style>
-.vditor-ir .vditor-reset{padding-left:60px!important}
+.vditor-wysiwyg .vditor-reset{padding-left:60px!important}
 .vditor-toolbar.vditor-toolbar--pin{padding-left:60px!important}
 #ln-gutter{position:fixed;width:32px;pointer-events:none;user-select:none;z-index:10;overflow:hidden;border-right:1px solid rgba(128,128,128,0.12)}
 #ln-gutter .ln{position:absolute;width:26px;text-align:right;font-size:11px;font-family:'Cascadia Code','Consolas',monospace;color:rgba(150,150,150,0.5);line-height:1}
@@ -278,7 +292,7 @@ class EditorPanel {
       btn.style.opacity=window.__lnEnabled?'0.7':'0.3';
       var g=document.getElementById('ln-gutter');
       if(g)g.style.display=window.__lnEnabled?'':'none';
-      var r=document.querySelector('.vditor-ir .vditor-reset');
+      var r=document.querySelector('.vditor-wysiwyg .vditor-reset');
       if(r)r.style.setProperty('padding-left',window.__lnEnabled?'60px':'35px','important');
       if(tb)tb.style.setProperty('padding-left',window.__lnEnabled?'60px':'35px','important');
     };
@@ -287,8 +301,8 @@ class EditorPanel {
   function sync(){
     addToggle();
     if(!window.__lnEnabled)return;
-    var reset=document.querySelector('.vditor-ir .vditor-reset');
-    var ir=document.querySelector('.vditor-ir');
+    var reset=document.querySelector('.vditor-wysiwyg .vditor-reset');
+    var ir=document.querySelector('.vditor-wysiwyg');
     if(!reset||!ir||reset.children.length===0) return;
     var g=document.getElementById('ln-gutter');
     if(!g){g=document.createElement('div');g.id='ln-gutter';document.body.appendChild(g)}
@@ -394,7 +408,7 @@ class EditorPanel {
       this._update({
         type: 'init',
         options: EditorPanel.getVditorOptions(this._context),
-        theme: theme.kind === vscode.ColorThemeKind.Dark ? 'dark' : 'light',
+        theme: 'light',
       })
     }, null, this._disposables)
     // update EditorPanel when vsc editor changes
@@ -440,11 +454,7 @@ class EditorPanel {
             this._update({
               type: 'init',
               options: EditorPanel.getVditorOptions(this._context),
-              theme:
-                vscode.window.activeColorTheme.kind ===
-                  vscode.ColorThemeKind.Dark
-                  ? 'dark'
-                  : 'light',
+              theme: 'light',
             })
             break
           }
@@ -623,7 +633,7 @@ class EditorPanel {
 
 				<title>markdown editor</title>
         <style>` +
-      EditorPanel.config.get<string>('customCss') +
+      getCustomCssContent(this._extensionUri) +
       `</style>
 			</head>
 			<body>
@@ -727,7 +737,7 @@ class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
           updateWebview({
             type: 'init',
             options: EditorPanel.getVditorOptions(this.context),
-            theme: vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark ? 'dark' : 'light',
+            theme: 'light',
           })
           break
         case 'save-options':
@@ -834,7 +844,7 @@ class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
 				<title>markdown editor</title>
         <style>` +
-      EditorPanel.config.get<string>('customCss') +
+      getCustomCssContent(this.context.extensionUri) +
       `</style>
 			</head>
 			<body>

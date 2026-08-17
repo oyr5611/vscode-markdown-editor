@@ -7,6 +7,16 @@
 
 ![demo](./demo.gif)
 
+## Additional Features / 追加機能
+
+### Custom CSS Unification / カスタムCSSの一本化 (v0.0.2)
+- **EN**: Removed the `markdown-editor.customCss` setting. Custom CSS is now automatically loaded only from `media/default-custom.css` within the extension for a unified and simple design.
+- **JA**: `markdown-editor.customCss` 設定を廃止しました。デザインと管理をシンプルにするため、拡張機能内の `media/default-custom.css` からのみ自動的にCSSを読み込む仕様に一本化しました。
+
+### Single Scrollbar & Light Theme / 一重スクロールバー化とテーマのLight固定 (v0.0.2)
+- **EN**: Fixed the Vditor theme to `Light` and completely removed the double scrollbars on the webview for a cleaner layout.
+- **JA**: Vditorのテーマを `Light` に強制固定し、Webview上の二重スクロールバーを完全に排除してレイアウトを最適化しました。
+
 ## Features / 主な機能
 
 1. What You See Is What You Get (WYSIWYG)
