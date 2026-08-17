@@ -3,7 +3,7 @@
   "displayName": "Markdown Editor",
   "icon": "media/logo.png",
   "description": "A full-featured WYSIWYG editor for markdown.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "zaaack",
   "private": true,
   "engines": {
@@ -93,6 +93,11 @@
           "type": "boolean",
           "default": false,
           "description": "Open the outline by default when opening a markdown editor."
+        },
+        "markdown-editor.enableMath": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable math (KaTeX) rendering. Set to false to improve rendering performance if you don't use math."
         }
       }
     },

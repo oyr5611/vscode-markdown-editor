@@ -250,6 +250,17 @@ class EditorPanel {
    * Builds initial Vditor options from VS Code settings and saved options.
    */
   static getVditorOptions(context: vscode.ExtensionContext): any {
+    const saved = context.globalState.get<any>(KeyVditorOptions) || {}
+    delete saved.theme
+    delete saved.mode
+    if (saved.preview) {
+      delete saved.preview.theme
+    }
+    const enableMath = EditorPanel.config.get<boolean>('enableMath') === true
+    const mathOption = enableMath
+      ? { inlineDigit: true }
+      : { inlineDigit: false, engine: null }
+
     return {
       useVscodeThemeColor: EditorPanel.config.get<boolean>(
         'useVscodeThemeColor'
@@ -262,7 +273,17 @@ class EditorPanel {
           'defaultOpenOutline'
         ) === true,
       },
-      ...context.globalState.get(KeyVditorOptions),
+      ...saved,
+      mode: 'wysiwyg',
+      theme: 'classic',
+      preview: {
+        ...(saved.preview || {}),
+        theme: {
+          current: 'light',
+          path: 'https://cdn.jsdelivr.net/npm/vditor@3.8.17/dist/css/content-theme'
+        },
+        math: mathOption
+      }
     }
   }
 

@@ -17,6 +17,10 @@
 - **EN**: Fixed the Vditor theme to `Light` and completely removed the double scrollbars on the webview for a cleaner layout.
 - **JA**: Vditorのテーマを `Light` に強制固定し、Webview上の二重スクロールバーを完全に排除してレイアウトを最適化しました。
 
+### Math Rendering Toggle / 数式(MathJax)の軽量化設定 (v0.0.3)
+- **EN**: Added `markdown-editor.enableMath` setting (default: false). Math rendering engines (KaTeX) can be heavy, so disabling this greatly improves loading performance for users who don't write math equations.
+- **JA**: `markdown-editor.enableMath` 設定を追加しました（デフォルト: false）。数式レンダリング（KaTeX）は読み込みが重いため、数式を使わないユーザーはこれをオフにしておくことで起動パフォーマンスが大幅に向上します。
+
 ## Features / 主な機能
 
 1. What You See Is What You Get (WYSIWYG)
